@@ -1,0 +1,78 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - App</title>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+
+<body>
+    <section id="main">
+        <div class="start">
+            <div class="heading">
+                <h1>Welcome To The Quiz Game</h1>
+            </div>
+            <div class="options">
+                <h2>Select Sections</h2>
+                <div class="sec">
+                    <select name="" id="cat">
+                        <option value="Category" class="cat-op" id="22">Category</option>
+                        <option value="Geography" class="cat-op" id="22">Geography</option>
+                        <option value="History" class="cat-op" id="23">History</option>
+                        <option value="Science" class="cat-op" id="17">Science</option>
+                        <option value="General" class="cat-op" id="9">General Knowledge</option>
+                        <option value="Computer" class="cat-op" id="18">Computer Science</option>
+                        <option value="Maths" class="cat-op" id="19">Maths</option>
+                        <option value="Arts" class="cat-op" id="25">Arts</option>
+                        <option value="Animals" class="cat-op" id="27">Animals</option>
+                        <option value="Sports" class="cat-op" id="21">Sports</option>
+                    </select>
+                    <select id="diffi">
+                        <option value="Easy">Easy</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Hard">Hard</option>
+                    </select>
+                    <label for="num">
+                        <select id="num">
+                            <option value="10">Number of Questions</option>
+                            <option value="10">1 TO 10</option>
+                            <option value="20">1 TO 20</option>
+                            <option value="30">1 TO 30</option>
+                            <option value="40">1 TO 40</option>
+                            <option value="50">1 TO 50</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+            <button class="sub" id="start-btn">Submit Now</button>
+        </div>
+
+        <!--    QUESTION SECTION  -->
+
+        <div class="questions"  style="display: none;">
+            <div class="ques-num">
+                <p><ul>Question 0 Out of 10</ul></p>
+            </div>
+            <div class="ques">
+                <h2><span>1).</span> In the year 1900, what were the most popular first names given to boy and girl babies born in the United States?</h2>
+                <div class="ques-option">
+                    <ul class="un-list">
+                        <h3><li>John and Mary</li></h3>
+                        <h3><li>Joseph and Catherine</li></h3>
+                        <h3><li>William and Elizabeth</li></h3>
+                        <h3><li>George and Anne</li></h3>
+                    </ul>
+                </div>
+            </div>
+            <div class="ans-button">
+                <button class="sub">Submit Answer</button>
+            </div>
+        </div>
+    </section>
+    <script src="script.js"></script>
+    <script src="https://kit.fontawesome.com/88fbbffc8c.js" crossorigin="anonymous"></script>
+</body>
+
+</html>
