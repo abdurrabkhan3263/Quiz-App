@@ -10,14 +10,14 @@
 
 <body>
     <section id="main">
-        <div class="start">
+        <div class="start" style="display: flex;">
             <div class="heading">
                 <h1>Welcome To The Quiz Game</h1>
             </div>
             <div class="options">
                 <h2>Select Sections</h2>
                 <div class="sec">
-                    <select name="" id="cat">
+                    <select name="" id="cat" class="user-p">
                         <option value="Category" class="cat-op" id="22">Category</option>
                         <option value="Geography" class="cat-op" id="22">Geography</option>
                         <option value="History" class="cat-op" id="23">History</option>
@@ -29,12 +29,12 @@
                         <option value="Animals" class="cat-op" id="27">Animals</option>
                         <option value="Sports" class="cat-op" id="21">Sports</option>
                     </select>
-                    <select id="diffi">
+                    <select id="diffi" class="user-p">
                         <option value="Easy">Easy</option>
                         <option value="Medium">Medium</option>
                         <option value="Hard">Hard</option>
                     </select>
-                    <label for="num">
+                    <label for="num" class="user-p">
                         <select id="num">
                             <option value="10">Number of Questions</option>
                             <option value="10">1 TO 10</option>
@@ -51,12 +51,12 @@
 
         <!--    QUESTION SECTION  -->
 
-        <div class="questions"  style="display: none;">
+        <div class="questions" style="display: none;">
             <div class="ques-num">
                 <p><ul>Question 0 Out of 10</ul></p>
             </div>
             <div class="ques">
-                <h2><span>1).</span> In the year 1900, what were the most popular first names given to boy and girl babies born in the United States?</h2>
+                <h2 id="main-question"><span>1).</span> In the year 1900, what were the most popular first names given to boy and girl babies born in the United States?</h2>
                 <div class="ques-option">
                     <ul class="un-list">
                         <h3><li>John and Mary</li></h3>
@@ -67,7 +67,7 @@
                 </div>
             </div>
             <div class="ans-button">
-                <button class="sub">Submit Answer</button>
+                <button class="sub" id="ans-next">Next</button>
             </div>
         </div>
     </section>

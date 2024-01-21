@@ -71,8 +71,10 @@ body{
 .sec{
     width: 100%;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
+
 
 .options{
     width: 100%;
@@ -86,12 +88,15 @@ body{
 
 
 .options select{
+    text-align: center;
     height: 35px;
     outline: none;
     border: none;
     border-radius: 0.3rem;
     padding-inline: 5px;
     font-size: 16px;
+    margin-bottom: 15px;
+    flex-basis: 30%;
 }
 
 .options select option{
@@ -183,4 +188,44 @@ body{
     background-color: rgb(134, 182, 246);
     color: rgb(255, 255, 255);
     border-radius: 0.5rem;
+}
+
+
+@media (max-width:799px) {
+    #main {
+        height: 80%;
+        width: 80%;
+    }
+}
+
+@media (max-width:477px) {
+    #main {
+        height: 100%;
+        width: 100%;
+        border-radius: 0;
+        padding: 20px 15px;
+    }
+    .start h2 {
+        padding-bottom: 20px;
+    }
+    .heading h1 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        text-align: center;
+    }
+    .heading {
+        padding-bottom: 10px;
+    }
+    .options select {
+        width: 110px;
+    }
+    .sub {
+        bottom: 50px;
+    }
+    .ques h2 {
+        padding-block-end: 0px;
+    }
+    .un-list h3 li {
+        padding: 13px 20px;
+    }
 }
