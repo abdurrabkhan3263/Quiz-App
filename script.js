@@ -44,13 +44,13 @@ queValue.addEventListener('change', (event => {
 let startBtn = document.querySelector('#start-btn');
 let start = document.querySelector('.start');
 let questions = document.querySelector('.questions');
+let quesSer = document.querySelector('.question-series')
 
-let counter = 0;
 let arr;
 
 // QUESTIONS SELECTORS;
 const mainQues = document.querySelector('#main-question');
-const option = document.querySelector('.un-list')
+const option = document.querySelectorAll('.match')
 
 async function addingQestions() {
     const url = (`https://opentdb.com/api.php?amount=${quesNum}&category=${category}&difficulty=${difficut}&type=multiple`);
@@ -59,20 +59,45 @@ async function addingQestions() {
     arr = await result.results;
 }
 
+let optionNum = [[0, 1, 2, 3], [3, 1, 0, 2], [1, 2, 3, 0], [2, 3, 0, 1]];
+let correctScrore = 0;
+let counter = 0;
+let correctAns = '';
+let ClickAns = '';
+let clickeble = true;
+let value = 0;
 
-async function loadQues(){
-    let data = arr[counter];
-    let Ques = data['question'];
-    let options1 = data['incorrect_answers'][0];
-    let options2 = data['incorrect_answers'][1];
-    let options3 = data['incorrect_answers'][2];
-    let options4 = data['correct_answer'];
-    let correctAns = data['correct_answer'];
-    console.log(Ques)
-    console.log(options1)
-    console.log(options2)
-    console.log(options3)
-    console.log(options4)
+option.forEach((value)=>{
+    if(clickeble){
+        value.addEventListener('click' , event=>{
+            console.log(clickeble)
+            ClickAns = event.target.innerHTML;
+            console.log(ClickAns)
+            console.log(correctAns)
+            if(ClickAns == correctAns){
+                correctScrore = correctScrore + 1;
+            }
+        })
+    }
+})
+
+async function loadQues() {
+    let randomNumber = Math.floor(Math.random() * 3);
+    let data = await arr[counter];
+    let Ques = await data['question'];
+    let allOp = [data['incorrect_answers'][0], data['incorrect_answers'][1], data['incorrect_answers'][2], data['correct_answer']];
+    let option1 = await allOp[optionNum[randomNumber][0]];
+    let option2 = await allOp[optionNum[randomNumber][1]];
+    let option3 = await allOp[optionNum[randomNumber][2]];
+    let option4 = await allOp[optionNum[randomNumber][3]];
+    correctAns = option4;
+    mainQues.innerHTML = `<span>${counter + 1}).</span> ${Ques}`;
+    option[0].innerHTML = option1;
+    option[1].innerHTML = option2;
+    option[2].innerHTML = option3;
+    option[3].innerHTML = option4;
+    quesSer.innerHTML = `Question ${counter + 1} Out of ${arr.length}`
+
 }
 
 startBtn.addEventListener('click', async () => {
@@ -84,19 +109,22 @@ startBtn.addEventListener('click', async () => {
     }
     await addingQestions();
     await loadQues();
-    counter++;
+    counter = counter + 1;
 })
 
 
 // ADDING QUESTION 
 let nextQues = document.querySelector('#ans-next');
 
-nextQues.addEventListener('click', (event) => {
-    if(counter >= arr.length){
+nextQues.addEventListener('click', async (event) => {
+    if (counter >= arr.length) {
+        clickeble = false;
         return;
+    } else {
+        await loadQues();
+        counter = counter + 1;
     }
-    loadQues();
-    counter++;
+
 })
 
 

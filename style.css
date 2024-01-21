@@ -138,6 +138,7 @@ body{
     align-items: start;
     padding-block-start: 10px;
     padding-inline: 10px;
+    width: 100%;
 }
 
 .ques span{
@@ -169,10 +170,13 @@ body{
     display: flex;
     flex-direction: column;
     align-items: start;
+    justify-content: start;
+    height: 65%;
 }
 
 .ques h2{
-    padding-block-end: 5px;
+    height: 10%;
+    margin-bottom: 40px;
 }
 
 .un-list{
@@ -184,7 +188,7 @@ body{
     width: 100%;
     list-style: none;
     padding: 15px 20px;
-    margin-block: 32px;
+    margin-block-end: 45px;
     background-color: rgb(134, 182, 246);
     color: rgb(255, 255, 255);
     border-radius: 0.5rem;
