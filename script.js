@@ -45,7 +45,8 @@ let startBtn = document.querySelector('#start-btn');
 let start = document.querySelector('.start');
 let questions = document.querySelector('.questions');
 let quesSer = document.querySelector('.question-series')
-
+let scoreSec = document.querySelector('.score-section');
+let conBtn = document.querySelector('#con-btn');
 let arr;
 
 // QUESTIONS SELECTORS;
@@ -62,42 +63,53 @@ async function addingQestions() {
 let optionNum = [[0, 1, 2, 3], [3, 1, 0, 2], [1, 2, 3, 0], [2, 3, 0, 1]];
 let correctScrore = 0;
 let counter = 0;
-let correctAns = '';
-let ClickAns = '';
 let clickeble = true;
-let value = 0;
+let scoreValue = 0;
 
-option.forEach((value)=>{
-    if(clickeble){
-        value.addEventListener('click' , event=>{
-            console.log(clickeble)
-            ClickAns = event.target.innerHTML;
-            console.log(ClickAns)
-            console.log(correctAns)
-            if(ClickAns == correctAns){
-                correctScrore = correctScrore + 1;
+function getAns(cAns){
+    let correct = decodeURIComponent(`${cAns}`);
+    let boolean = true;
+    let correctSelec;
+    option.forEach((value) => {
+        if(value.innerHTML == correct){
+            correctSelec = value;
+        }
+        value.style.backgroundColor = `rgb(134, 182, 246)`;
+        value.addEventListener('click' , (event)=>{
+            if(event.target.innerHTML == correct){
+                event.target.style.backgroundColor = `rgb(79, 111, 82)`;
+                correctSelec = '';
+                scoreValue = scoreValue + 1;
+            }
+            else if(event.target.innerHTML != correct){
+                if(!correctSelec == ''){
+                    correctSelec.style.backgroundColor = `rgb(79, 111, 82)`;
+                }
+                event.target.style.backgroundColor = `red`;
+                correctSelec = '';
             }
         })
-    }
-})
+    })
+}
 
 async function loadQues() {
     let randomNumber = Math.floor(Math.random() * 3);
     let data = await arr[counter];
-    let Ques = await data['question'];
-    let allOp = [data['incorrect_answers'][0], data['incorrect_answers'][1], data['incorrect_answers'][2], data['correct_answer']];
-    let option1 = await allOp[optionNum[randomNumber][0]];
-    let option2 = await allOp[optionNum[randomNumber][1]];
-    let option3 = await allOp[optionNum[randomNumber][2]];
-    let option4 = await allOp[optionNum[randomNumber][3]];
-    correctAns = option4;
-    mainQues.innerHTML = `<span>${counter + 1}).</span> ${Ques}`;
-    option[0].innerHTML = option1;
-    option[1].innerHTML = option2;
-    option[2].innerHTML = option3;
-    option[3].innerHTML = option4;
-    quesSer.innerHTML = `Question ${counter + 1} Out of ${arr.length}`
-
+    if(data.length != 0){
+        let Ques = await data['question'];
+        let allOp = [data['incorrect_answers'][0], data['incorrect_answers'][1], data['incorrect_answers'][2], data['correct_answer']];
+        let option1 = await allOp[optionNum[randomNumber][0]];
+        let option2 = await allOp[optionNum[randomNumber][1]];
+        let option3 = await allOp[optionNum[randomNumber][2]];
+        let option4 = await allOp[optionNum[randomNumber][3]];
+        option[0].innerHTML = option1;
+        option[1].innerHTML = option2;
+        option[2].innerHTML = option3;
+        option[3].innerHTML = option4;
+        mainQues.innerHTML = `<span>${counter + 1}).</span> ${Ques}`;
+        quesSer.innerHTML = `Question ${counter + 1} Out of ${arr.length}`;
+        getAns(data['correct_answer']);
+    }
 }
 
 startBtn.addEventListener('click', async () => {
@@ -118,13 +130,23 @@ let nextQues = document.querySelector('#ans-next');
 
 nextQues.addEventListener('click', async (event) => {
     if (counter >= arr.length) {
+        questions.style.display = `none`;
+        scoreSec.style.display = 'flex';
+        scoreSec.firstElementChild.innerHTML = `Score is ${scoreValue} Out Of ${arr.length}`
         clickeble = false;
+        arr = '';
+        await loadQues();
         return;
     } else {
         await loadQues();
         counter = counter + 1;
     }
 
+})
+
+conBtn.addEventListener('click' , ()=>{
+    scoreSec.style.display = 'none';
+    start.style.display = 'flex';
 })
 
 
