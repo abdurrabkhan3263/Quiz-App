@@ -10,7 +10,7 @@ let catObj = {
     Science: 17,
     General: 9,
     Computer: 18,
-    Maths: 19,
+    VideoGame : 15,
     Arts: 25,
     Animals: 27,
     Sports: 21,
@@ -21,14 +21,12 @@ const diff = document.querySelector('#diffi');
 const queValue = document.querySelector('#num');
 const catOp = document.querySelectorAll('.cat-op')
 
-function changeBackground(value) {
+function giveCat(value) {
     category = catObj[value];
-    const body = document.body;
-    body.style.backgroundImage = `url(img/${value}.jpg)`;
 }
 
 cat.addEventListener('change', (event => {
-    changeBackground(cat.value);
+    giveCat(cat.value);
 }));
 
 diff.addEventListener('change', (event => {
@@ -58,8 +56,7 @@ async function addingQestions() {
     const url = (`https://opentdb.com/api.php?amount=${quesNum}&category=${category}&difficulty=${difficut}&type=multiple`);
     const response = await fetch(url);
     const result = await response.json();
-    console.log(await response.ok)
-    console.log(await response.status)
+    console.log(await url)
     arr = await result.results;
 }
 
@@ -67,35 +64,22 @@ let optionNum = [[0, 1, 2, 3], [3, 1, 0, 2], [1, 2, 3, 0], [2, 3, 0, 1]];
 let correctScrore = 0;
 let counter = 0;
 let clickeble = true;
+let correctSelec;
 let scoreValue = 0;
 let count = 0
 
-function getAns(cAns) {
-    let correct = decodeURIComponent(`${cAns}`);
-    let boolean = true;
-    let correctSelec;
-
+function getAns() {
     option.forEach((value) => {
         value.style.backgroundColor = `rgb(134, 182, 246)`;
-        if (value.innerHTML == correct) {
-            correctSelec = value;
-        }
         value.addEventListener('click', (event) => {
             if (count === 0) {
-                if (event.target.innerHTML == correct) {
+                if (event.target.innerHTML == correctSelec.innerHTML) {
                     event.target.style.backgroundColor = `rgb(79, 111, 82)`;
-                    correctSelec = '';
                     scoreValue = scoreValue + 1;
                 }
-                else if (event.target.innerHTML != correct) {
-                    console.log('i am here')
-                    console.log(correctSelec);
-                    console.log(correctSelec == '')
+                else if (event.target.innerHTML != correctSelec.innerHTML) {
                     correctSelec.style.backgroundColor = `rgb(79, 111, 82)`;
-                    // if (!correctSelec == '') {
-                    // }
                     event.target.style.backgroundColor = `red`;
-                    correctSelec = '';
                 }
                 count = 1;
             }
@@ -120,9 +104,14 @@ async function loadQues() {
         option[1].innerHTML = await option2;
         option[2].innerHTML = await option3;
         option[3].innerHTML = await option4;
+        option.forEach(value => {
+            if (value.innerHTML == data['correct_answer']) {
+                correctSelec = value;
+            }
+        })
         mainQues.innerHTML = `<span>${counter + 1}).</span> ${Ques}`;
         quesSer.innerHTML = `Question ${counter + 1} Out of ${arr.length}`;
-        getAns(encodeURIComponent(`${data['correct_answer']}`));
+        getAns();
     }
 }
 
@@ -160,10 +149,12 @@ nextQues.addEventListener('click', async (event) => {
         questions.style.display = `none`;
         scoreSec.style.display = 'flex';
         scoreSec.firstElementChild.innerHTML = `Score is ${scoreValue} Out Of ${arr.length}`
-        clickeble = false;
-        arr = '';
+        // arr = '';
+        correctSelec = '';
         count = 0;
-        await loadQues();
+        if (counter != arr.length) {
+            await loadQues();
+        }
         return;
     } else {
         count = 0;
