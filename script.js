@@ -10,7 +10,7 @@ let catObj = {
     Science: 17,
     General: 9,
     Computer: 18,
-    VideoGame : 15,
+    VideoGame: 15,
     Arts: 25,
     Animals: 27,
     Sports: 21,
@@ -145,11 +145,22 @@ startBtn.addEventListener('click', async () => {
 let nextQues = document.querySelector('#ans-next');
 
 nextQues.addEventListener('click', async (event) => {
+    let gifImg = document.querySelector('.gif-img')
     if (counter >= arr.length) {
+        let scorePer = scoreValue / quesNum * 100;
         questions.style.display = `none`;
         scoreSec.style.display = 'flex';
-        scoreSec.firstElementChild.innerHTML = `Score is ${scoreValue} Out Of ${arr.length}`
-        // arr = '';
+        scoreSec.firstElementChild.innerHTML = `Score is ${scoreValue} Out Of ${arr.length}`;
+        if(scorePer >= 0 && scorePer <= 35){
+            gifImg.setAttribute('src' , `img/0.gif`)
+        }
+        else if(scorePer >= 36 && scorePer <= 50){
+            gifImg.setAttribute('src' , `img/5.gif`);
+        }
+        else if(scorePer >= 51 && scorePer <= 100){
+            gifImg.setAttribute('src' , `img/100.gif`);
+        }
+        arr = '';
         correctSelec = '';
         count = 0;
         if (counter != arr.length) {
@@ -159,6 +170,7 @@ nextQues.addEventListener('click', async (event) => {
     } else {
         count = 0;
         await loadQues();
+        console.log(arr[counter])
         counter = counter + 1;
     }
 
@@ -172,7 +184,6 @@ function restartGame() {
 conBtn.addEventListener('click', () => {
     restartGame();
     arr.length = 0;
-    loadQues();
     scoreSec.style.display = 'none';
     start.style.display = 'flex';
 })
