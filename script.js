@@ -56,7 +56,6 @@ async function addingQestions() {
     const url = (`https://opentdb.com/api.php?amount=${quesNum}&category=${category}&difficulty=${difficut}&type=multiple`);
     const response = await fetch(url);
     const result = await response.json();
-    console.log(await url)
     arr = await result.results;
 }
 
@@ -154,10 +153,10 @@ nextQues.addEventListener('click', async (event) => {
         if(scorePer >= 0 && scorePer <= 35){
             gifImg.setAttribute('src' , `img/0.gif`)
         }
-        else if(scorePer >= 36 && scorePer <= 50){
+        else if(scorePer >= 36 && scorePer <= 65){
             gifImg.setAttribute('src' , `img/5.gif`);
         }
-        else if(scorePer >= 51 && scorePer <= 100){
+        else if(scorePer >= 66 && scorePer <= 100){
             gifImg.setAttribute('src' , `img/100.gif`);
         }
         arr = '';
@@ -170,7 +169,6 @@ nextQues.addEventListener('click', async (event) => {
     } else {
         count = 0;
         await loadQues();
-        console.log(arr[counter])
         counter = counter + 1;
     }
 
